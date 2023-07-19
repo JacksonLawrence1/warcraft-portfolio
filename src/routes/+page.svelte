@@ -10,5 +10,4 @@
 
 <div>
   <CharacterForm class="flex flex-col justify-center" />
-  <LogData />
 </div>
