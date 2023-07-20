@@ -3,5 +3,4 @@
     import RaidProgress from "../components/RaidProgress.svelte";
 </script>
 
-<NavBar />
 <RaidProgress />
