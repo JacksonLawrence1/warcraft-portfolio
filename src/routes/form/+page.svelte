@@ -1,14 +1,11 @@
 <script>
     // import character form from components
-    import CharacterForm from '../components/CharacterForm.svelte';
-    import NavBar from '../components/NavBar.svelte';  
+    import CharacterForm from './CharacterForm.svelte';
 
     export let data;
-    $: ( { products } = data ) 
 
   </script>
     
   <div>
-    <CharacterForm />
-    
+    <CharacterForm {data} />
   </div>

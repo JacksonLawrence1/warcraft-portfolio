@@ -1,17 +1,42 @@
-import { WOW_CLIENT_ID, WOW_CLIENT_SECRET } from '$env/static/private';
+import axios from 'axios';
 
-const clientId = WOW_CLIENT_ID;
-const clientSecret = WOW_CLIENT_SECRET;
+const fetchRealms = async (regionName) => {
+    const testURL = `https://${regionName}.api.blizzard.com/data/wow/realm/index`;
+    const headers = {
+        "Battlenet-Namespace": `dynamic-${regionName}`,
+    };
 
-export const load = async ({ fetch }) => {
-
-    const fetchProducts = async () => {
-        const productRes = await fetch('https://dummyjson.com/products?limit=5');
-        const productData = await productRes.json();
-        return productData.products;
+    try {
+        const response = await axios.get(testURL, { headers });
+        return response.data.realms.map(realm => realm.name.en_US).sort((a, b) => a.localeCompare(b));
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
     }
+}
+
+
+const fetchRegions = async () => {
+    const testURL = `https://us.api.blizzard.com/data/wow/region/index`;
+    const headers = {
+        "Battlenet-Namespace": "dynamic-us",
+    };
+
+    try {
+        const response = await axios.get(testURL, { headers });
+        return response.data.regions;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+}
+
+export const load = async () => {
 
     return {
-        products: fetchProducts(),
+        realms: {
+            eu: await fetchRealms('eu'),
+            us: await fetchRealms('us'),
+        },
     }
 }
