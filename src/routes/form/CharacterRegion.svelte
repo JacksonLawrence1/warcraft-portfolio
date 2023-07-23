@@ -9,7 +9,6 @@
 	function verifyInput(e) {
 		//error = !regions.includes(value.toLowerCase());
 		value = e.target.value;
-		selectedRegion.set(e.target.value);
 	}
 
 </script>

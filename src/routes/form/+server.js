@@ -9,12 +9,19 @@ const fetchRealms = async (regionName) => {
 
     try {
         const response = await axios.get(testURL, { headers });
-        return response.data.realms.map(realm => realm.name.en_US).sort((a, b) => a.localeCompare(b));
+        return response.data.realms;
     } catch (error) {
         throw error; // Rethrow the error to handle it in the calling function if needed
     }
 }
 
-export async function GET() {
-    return json({realms: await fetchRealms('us')});
+export async function GET( { url }) {
+
+    try {
+        const region = url.searchParams.get("region");
+        return json({realms: await fetchRealms(region)});
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return json({realms: []});
+    }
 }
