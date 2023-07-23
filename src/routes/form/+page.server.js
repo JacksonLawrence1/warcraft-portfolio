@@ -33,10 +33,4 @@ const fetchRegions = async () => {
 
 export const load = async () => {
 
-    return {
-        realms: {
-            eu: await fetchRealms('eu'),
-            us: await fetchRealms('us'),
-        },
-    }
 }

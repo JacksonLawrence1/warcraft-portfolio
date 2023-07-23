@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from "svelte";
 
 	let id = 'realm';
 	let text = 'Realm';
@@ -6,7 +7,18 @@
 	export let region;
 	export let value;
 	export let realms;
-	
+
+	async function getRealm() {
+		const response = await fetch('form', {
+            method: 'GET',
+        })
+        const resJSON = await response.json()
+        console.log(resJSON)
+	}
+
+	onMount	(async () => {
+		await getRealm();
+	});
 </script>
 
 <div>
