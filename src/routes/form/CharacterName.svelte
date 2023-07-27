@@ -1,5 +1,5 @@
 <script>
-	let id = 'CharacterName';
+	let id = 'characterName';
 	let text = 'Character Name';
 	export let value;
 	export let validName = false;
@@ -37,6 +37,7 @@
 		{id}
 		bind:value
 		type="text"
+		name={id}
 		placeholder="Type here"
 		class="input input-bordered w-full max-w-xs"
 		on:input={() => {

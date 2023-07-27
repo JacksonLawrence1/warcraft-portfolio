@@ -1,5 +1,6 @@
 <script>
 	import { realms } from '$lib/stores.js';
+	import { get } from 'svelte/store'
 
 	let id = 'realm';
 	let text = 'Realm';
@@ -13,7 +14,12 @@
 	let loadedRealms;
 
 	realms.subscribe((realm) => {
-		loadedRealms = realm[region.toLowerCase()];
+		if (!realm[region.toLowerCase()]) return;
+		
+		// sort by name alphabetically in english
+		loadedRealms = realm[region.toLowerCase()].sort((a, b) => {
+			return a.name.en_US.localeCompare(b.name.en_US);
+		})
 	});
 
 	async function getRealm() {
@@ -21,8 +27,7 @@
 		if (!region) return;
 
 		// check we don't already have realm stored in local memory
-		if (loadedRealms && loadedRealms.length > 0) {
-			console.log("a")
+		if (get(realms)[region.toLowerCase()]) {
 			value = loadedRealms[0];
 			isDataLoaded = true;
 			return;
@@ -39,10 +44,7 @@
 		data = response.json().then((realmJSON) => {
 			// store realms in local memory alphabetically in english
 			realms.update((realms) => {
-				realms[region.toLowerCase()] = realmJSON.realms
-					.map((realm) => realm.name.en_US)
-					.sort((a, b) => a.localeCompare(b));
-				value = realms[region.toLowerCase()][0];
+				realms[region.toLowerCase()] = realmJSON.realms;
 				return realms;
 			});
 			isDataLoaded = true; // Set the flag to indicate data is loaded
@@ -70,13 +72,13 @@
 		<span class="label-text">{text}</span>
 	</label>
 
-	<select class="select select-bordered w-full max-w-xs" bind:value disabled={!isDataLoaded}>
+	<select name={id} class="select select-bordered w-full max-w-xs" bind:value disabled={!isDataLoaded}>
 		{#if data}
 			{#if !isDataLoaded}
 				<option disabled selected>Fetching realm list...</option>
 			{:else}
 				{#each loadedRealms as realm}
-					<option value={realm}>{realm}</option>
+					<option value={realm.slug}>{realm.name.en_US}</option>
 				{/each}
 			{/if}
 		{:else}

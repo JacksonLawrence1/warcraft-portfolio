@@ -18,7 +18,7 @@
 		<span class="label-text">{text}</span>
 	</label>
 	
-	<select class="select select-bordered w-full max-w-xs" on:change={verifyInput} bind:value={value}>
+	<select name={id} class="select select-bordered w-full max-w-xs" on:change={verifyInput} bind:value={value}>
 		<option disabled selected>Select your region</option>
 		{#each regions as region}
 			<option>{region.toUpperCase()}</option>
