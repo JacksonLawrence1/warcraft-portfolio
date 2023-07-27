@@ -20,6 +20,9 @@
 		loadedRealms = realm[region.toLowerCase()].sort((a, b) => {
 			return a.name.en_US.localeCompare(b.name.en_US);
 		})
+
+		// set the value to the first realm in the list
+		value = loadedRealms[0].slug;
 	});
 
 	async function getRealm() {
@@ -28,7 +31,7 @@
 
 		// check we don't already have realm stored in local memory
 		if (get(realms)[region.toLowerCase()]) {
-			value = loadedRealms[0];
+			value = loadedRealms[0].slug;
 			isDataLoaded = true;
 			return;
 		}
