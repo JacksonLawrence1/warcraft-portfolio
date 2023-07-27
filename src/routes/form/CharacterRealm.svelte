@@ -1,28 +1,28 @@
 <script>
 	import { realms } from '$lib/stores.js';
-	import { get } from 'svelte/store'
+	import { get } from 'svelte/store';
 
 	let id = 'realm';
 	let text = 'Realm';
 
 	let data;
-	export let isDataLoaded;
 
+	export let isDataLoaded;
 	export let region;
 	export let value;
+	export let realm;
 
+	let typing = false;
 	let loadedRealms;
 
 	realms.subscribe((realm) => {
 		if (!realm[region.toLowerCase()]) return;
-		
+
 		// sort by name alphabetically in english
 		loadedRealms = realm[region.toLowerCase()].sort((a, b) => {
 			return a.name.en_US.localeCompare(b.name.en_US);
-		})
-
-		// set the value to the first realm in the list
-		value = loadedRealms[0].slug;
+		});
+		value = '';
 	});
 
 	async function getRealm() {
@@ -31,7 +31,6 @@
 
 		// check we don't already have realm stored in local memory
 		if (get(realms)[region.toLowerCase()]) {
-			value = loadedRealms[0].slug;
 			isDataLoaded = true;
 			return;
 		}
@@ -61,12 +60,33 @@
 
 		getRealm();
 	}
-	
+
 	// Use a reactive statement to trigger data loading when the 'region' parameter changes
 	$: {
 		if (region) {
 			loadData();
 		}
+	}
+
+	function selectRealm(e) {
+		realm = loadedRealms[e.target.value];
+		value = realm.name.en_US;
+
+		checkInput(value);
+	}
+
+	function checkInput(e) {
+		let input;
+		if (e.target) {
+			input = e.target.value.toLowerCase();
+		} else {
+			input = e.toLowerCase();
+		}
+		
+		// filter loadedRealms by input and make sure they are not already selected
+		loadedRealms = get(realms)[region.toLowerCase()].filter((realm) => {
+			return realm.name.en_US.toLowerCase().includes(input) && realm.name.en_US.toLowerCase() !== input;
+		});
 	}
 </script>
 
@@ -75,17 +95,31 @@
 		<span class="label-text">{text}</span>
 	</label>
 
-	<select name={id} class="select select-bordered w-full max-w-xs" bind:value disabled={!isDataLoaded}>
-		{#if data}
-			{#if !isDataLoaded}
-				<option disabled selected>Fetching realm list...</option>
-			{:else}
-				{#each loadedRealms as realm}
-					<option value={realm.slug}>{realm.name.en_US}</option>
+	<div class="dropdown">
+		<input
+			{id}
+			bind:value
+			type="text"
+			name={id}
+			placeholder={!isDataLoaded ? '' : 'Type here'}
+			class="input input-bordered w-full max-w-xs"
+			disabled={!isDataLoaded}
+			on:input={checkInput}
+			on:focus={() => typing = true}
+			on:blur={() => typing = false}
+		/>
+		{#if isDataLoaded && loadedRealms.length > 0}
+		<div class="dropdown-content bg-base-200 top-14 max-h-96 overflow-auto flex-col w-full">
+			<ul class="menu menu-compact bg-opacity-100">
+				{#each loadedRealms as realm, i}
+				<li>
+					<button value={i} on:click={selectRealm}>
+						{realm.name.en_US}
+					</button>
+				</li>
 				{/each}
-			{/if}
-		{:else}
-			<option disabled selected>Select your realm</option>
+			</ul>
+		</div>
 		{/if}
-	</select>
+	</div>
 </div>
