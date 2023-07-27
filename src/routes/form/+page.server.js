@@ -16,21 +16,8 @@ const fetchRealms = async (regionName) => {
 }
 
 
-const fetchRegions = async () => {
-    const testURL = `https://us.api.blizzard.com/data/wow/region/index`;
-    const headers = {
-        "Battlenet-Namespace": "dynamic-us",
-    };
-
-    try {
-        const response = await axios.get(testURL, { headers });
-        return response.data.regions;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
+export const actions = {
+    search: async (request) => {
+        console.log("requested")
     }
-}
-
-export const load = async () => {
-
 }
