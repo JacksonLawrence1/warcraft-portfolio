@@ -4,16 +4,14 @@ import { images } from '$lib/raidStore.js'
 import axios from 'axios';
 
 const buildZone = (id) => {
-    return `normal: zoneRankings(zoneID: ${id}, difficulty: 3),
-            heroic: zoneRankings(zoneID: ${id}, difficulty: 4),
-            mythic: zoneRankings(zoneID: ${id}, difficulty: 5)`
+    return `mythic: zoneRankings(zoneID: ${id}, difficulty: 5)`
 }
 
 const buildQuery = (character, zone) => {
     return `query {
         characterData 
         {
-            aberrus: character(name: "${character.name}", serverRegion: "${character.region}", serverSlug: "${character.slug}")
+            sanctum: character(name: "${character.name}", serverRegion: "${character.region}", serverSlug: "${character.slug}")
             {
                 ${buildZone(zone)}
             }
@@ -21,11 +19,11 @@ const buildQuery = (character, zone) => {
     }`;
 }
 
-const findParses = async (character) => {
+const findParses = async (character, progress) => {
 	const url = `https://www.warcraftlogs.com/api/v2/client`;
 
 	try {
-		const response = await axios.post(url, { query: buildQuery(character, 33) });
+		const response = await axios.post(url, { query: buildQuery(character, 28) });
 		return response.data.data.characterData;
 	} catch (error) {
 		console.error('Error fetching data:', error);
@@ -92,6 +90,27 @@ function unpackProgress(data) {
     return raids.reverse();
 }
 
+const updateCharacterInfo = async (character) => {
+    const url = `https://${character.region}.api.blizzard.com/profile/wow/character/${character.slug}/${character.name.toLowerCase()} `;
+	const headers = {
+		'Battlenet-Namespace': `profile-${character.region}`
+	};
+
+	try {
+		const response = await axios.get(url, { headers });
+        return {
+            ...character,
+            id: response.data.id,
+            faction: response.data.faction.type,
+            class: response.data.character_class.name.en_US,
+            guild: response.data.guild.name,
+        };
+	} catch (error) {
+		console.error('Error fetching data:', error);
+		return [];
+	}
+}
+
 export async function load({ cookies }) {
 	let character = cookies.get('character');
 
@@ -102,10 +121,18 @@ export async function load({ cookies }) {
     character = JSON.parse(character);
     character.name = character.name.charAt(0).toUpperCase() + character.name.slice(1);
 
+    // add additional character info including id, faction, class, guild
+    character = await updateCharacterInfo(character);
+
+    // get raid progress
     const characterData = await findProgress(character);
+
+    // get raid parses
+    const logs = await findParses(character, characterData[0].id);
 
 	return {
         character: character,
 		raids: characterData,
+        logs: logs,
 	};
 }

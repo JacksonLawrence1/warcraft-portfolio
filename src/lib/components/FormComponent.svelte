@@ -1,6 +1,4 @@
 <script>
-    import { onMount } from 'svelte';
-
     export let id;
     export let text = "Missing label";
     export let value;
