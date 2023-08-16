@@ -8,20 +8,29 @@
 	let achievements = [];
 
 	onMount(() => {
-		let rankings = logs.sanctum.mythic.rankings;
-		achievements = [...achievements, getHighestRank(rankings)];
+		// multiple rankings in future, for now only shows single highest rank
+		achievements = getHighestRank();
 	});
 
-	function getHighestRank(rankings) {
-		let highestRank = null;
-		for (let i = 0; i < rankings.length; i++) {
-			if (
-				rankings[i].allStars &&
-				(highestRank == null || rankings[i].allStars.rank < highestRank.allStars.rank)
-			) {
-				highestRank = rankings[i];
-			}
-		}
+	// gets single highest rank from all logs in mythic difficulty
+	function getHighestRank() {
+		let highestRank = [];
+		logs.forEach((logs) => {
+			logs.rankings.forEach((log) => {
+				// only show highest logs in the top 100, also limit to 5
+				if (log.allStars?.rank <= 100 && highestRank.length < 5) {
+					highestRank.push({
+						rank: log.allStars.rank,
+						rankPercent: log.allStars.rankPercent,
+						spec: log.spec,
+						encounter: log.encounter,
+						difficulty: logs.difficulty,
+						raid: logs.raid,
+						metric: logs.metric,
+					});
+				}
+			});
+		});
 		return highestRank;
 	}
 </script>
@@ -32,8 +41,9 @@
 			<div class="card-header flex flex-row justify-between">
 				<h1 class="card-title">Notable Achievements</h1>
 			</div>
-
-			<RankingComponent rank={achievements[0]} character={character} />
+			{#each achievements as achievement}
+				<RankingComponent log={achievement} character={character} />
+			{/each}
 		</div>
 	</div>
 {/if}

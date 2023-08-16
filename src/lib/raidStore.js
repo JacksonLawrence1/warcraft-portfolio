@@ -1,50 +1,65 @@
-export const images = {
-	// dragonflight
-	// aberrus, the shadowed crucible
-    1208: 'https://assets.rpglogs.com/img/warcraft/zones/zone-33.png',
+const raids = [];
 
-	// vault of the incarnates
-	1200: 'https://assets.rpglogs.com/img/warcraft/zones/zone-31.png',
+function buildURL(zoneID) {
+	return `https://assets.rpglogs.com/img/warcraft/zones/zone-${zoneID}.png`
+}
 
-	// shadowlands
-	// sepulcher of the first ones
-	1195: 'https://assets.rpglogs.com/img/warcraft/zones/zone-29.png',
-	// sanctum of domination
-	1193: 'https://assets.rpglogs.com/img/warcraft/zones/zone-28.png',
-	// castle nathria
-	1190: 'https://assets.rpglogs.com/img/warcraft/zones/zone-26.png',
+function createRaid(id, zoneID, name, slug) {
+	raids.push({
+		id,
+		zoneID,
+		slug,
+		name,
+		image: buildURL(zoneID)
+	})
+}
 
-	// battle for azeroth
-	// ny'alotha
-	1180: 'https://assets.rpglogs.com/img/warcraft/zones/zone-24.png',
-	// the eternal palace
-	1179: 'https://assets.rpglogs.com/img/warcraft/zones/zone-23.png',
-	// crucible of storms
-	1177: 'https://assets.rpglogs.com/img/warcraft/zones/zone-22.png',
-	// battle of dazar'alor
-	1176: 'https://assets.rpglogs.com/img/warcraft/zones/zone-21.png',
-	// uldir
-	1031: 'https://assets.rpglogs.com/img/warcraft/zones/zone-19.png',
+// dragonflight
+createRaid(1208, 33, 'Aberrus, the Shadowed Crucible', 'aberrus');
+createRaid(1200, 31, 'Vault of the Incarnates', 'vault');
 
-	// legion
-	// antorus, the burning throne
-	946: 'https://assets.rpglogs.com/img/warcraft/zones/zone-17.png',
-	// tomb of sargeras
-	875: 'https://assets.rpglogs.com/img/warcraft/zones/zone-13.png',
-	// trial of valor
-	861: 'https://assets.rpglogs.com/img/warcraft/zones/zone-12.png',
-	// the nighthold
-	786: 'https://assets.rpglogs.com/img/warcraft/zones/zone-11.png',
-	// the emerald nightmare
-	768: 'https://assets.rpglogs.com/img/warcraft/zones/zone-10.png',
+// shadowlands
+createRaid(1195, 29, 'Sepulcher of the First Ones', 'sepulcher');
+createRaid(1193, 28, 'Sanctum of Domination', 'sanctum');
+createRaid(1190, 26, 'Castle Nathria', 'nathria');
 
-	// wod
-	// hellfire citadel
-	669: 'https://assets.rpglogs.com/img/warcraft/zones/zone-8.png',
-	// blackrock foundry
-	457: 'https://assets.rpglogs.com/img/warcraft/zones/zone-7.png',
-	// highmaul
-	477: 'https://assets.rpglogs.com/img/warcraft/zones/zone-6.png',
+// battle for azeroth
+createRaid(1180, 24, "Ny'alotha, the Waking City", 'nyalotha');
+createRaid(1179, 23, 'The Eternal Palace', 'palace');
+createRaid(1177, 22, 'Crucible of Storms', 'crucible');
+createRaid(1176, 21, 'Battle of Dazar\'alor', 'dazaralor');
+createRaid(1031, 19, 'Uldir', 'uldir');
 
-	default: 'https://assets.rpglogs.com/img/warcraft/zones/zone-30.png'
-};
+// legion
+createRaid(946, 17, 'Antorus, the Burning Throne', 'antorus');
+createRaid(875, 13, 'Tomb of Sargeras', 'tomb');
+createRaid(861, 12, 'Trial of Valor', 'trial');
+createRaid(786, 11, 'The Nighthold', 'nighthold');
+createRaid(768, 10, 'The Emerald Nightmare', 'emerald');
+
+// wod
+createRaid(669, 8, 'Hellfire Citadel', 'hellfire');
+createRaid(457, 7, 'Blackrock Foundry', 'blackrock');
+createRaid(477, 6, 'Highmaul', 'highmaul');
+
+export function getRaidFromId(id) {
+	return raids.find(raid => raid.id === id);
+}
+
+export function getImage(id) {
+	const raid = getRaidFromId(id);
+	return raid ? raid.image : null;
+}
+
+export function getRaidFromSlug(slug) {
+	return raids.find(raid => raid.slug === slug);
+}
+
+export function getZoneID(id) {
+	const raid = getRaidFromId(id);
+	return raid ? raid.zoneID : null;
+}
+
+export function getRaids(ids) {
+	return ids ? raids.filter(raid => ids.includes(raid.id)) : raids;
+}
