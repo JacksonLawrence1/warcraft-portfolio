@@ -13,14 +13,36 @@
 		link += `difficulty=${log.difficulty}`; // difficulty
 		return link;
 	}
+
+	function buildClass(params, rank) {
+		if (rank <= 1) {
+			return `${params} text-amber-100`;
+		} else if (rank <= 100) {
+			return `${params} text-pink-400`;
+		} else if (rank <= 200) {
+			return `${params} text-orange-400`;
+		} else {
+			return `${params} text-purple-800`;
+		}
+	}
 </script>
 
 {#if log}
 	<div class="stats shadow">
 		<div class="stat">
-			<div class="stat-value">Rank {log.rank}</div>
-			<div class="stat-title">{log.encounter.name}, Mythic</div>
-			<div class="stat-desc text-secondary">↗︎ {log.rankPercent.toFixed(0)}th percentile ({log.spec} {character.class}s)</div>
+			<div class={buildClass("stat-value -mt-2 font-semibold", log.rank)}>Rank {log.rank}</div>
+			{#if log.type === 'parse'}
+				<div class="stat-title">{log.encounter.name}, Mythic</div>
+				<div class="stat-desc text-secondary">
+					↗︎ {log.rankPercent.toFixed(0)}th percentile ({log.spec}
+					{character.class}s)
+				</div>
+			{:else if log.type === 'allStar'}
+				<div class="stat-title">{log.raid.name}, Mythic</div>
+				<div class="stat-desc text-secondary">
+					↗︎ All Stars {log.points.toFixed(0)} ({log.spec} {character.class}s)
+				</div>
+			{/if}
 			<div class="stat-figure">
 				<button class="btn btn-square btn-ghost">
 					<a href={buildWCLLink()} target="_blank">

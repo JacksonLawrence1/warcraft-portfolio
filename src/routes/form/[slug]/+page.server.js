@@ -62,6 +62,7 @@ const unpackParses = (data) => {
             avg: value.bestPerformanceAverage,
             difficulty: value.difficulty,
             metric: value.metric,
+			allStars: value.allStars[0], // get latest partition
             rankings: value.rankings,
         })
     }
