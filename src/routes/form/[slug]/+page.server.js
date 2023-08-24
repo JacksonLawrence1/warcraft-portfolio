@@ -2,6 +2,7 @@ import { error } from '@sveltejs/kit';
 import { getImage, getRaids, getRaidFromSlug } from '$lib/raidStore.js';
 
 import axios from 'axios';
+import { supabase } from '$lib/supabaseClient';
 
 const buildZone = (character, raid) => {
 	return `${raid.slug}: zoneRankings(zoneID: ${raid.zoneID}, difficulty: 5),
@@ -10,28 +11,28 @@ const buildZone = (character, raid) => {
 
 // get all raids by the character which have mythic progress
 const getMythicRaids = (progress) => {
-    let raidsIDs = [];
+	let raidsIDs = [];
 
-    progress.forEach((raid) => {
-        if (raid.progress.find((difficulty) => difficulty.type === "MYTHIC")) {
-            raidsIDs.push(raid.id);
-        }
-    });
+	progress.forEach((raid) => {
+		if (raid.progress.find((difficulty) => difficulty.type === 'MYTHIC')) {
+			raidsIDs.push(raid.id);
+		}
+	});
 
-    return getRaids(raidsIDs);
-}
+	return getRaids(raidsIDs);
+};
 
 const buildAllRaids = (character, progress) => {
-    // only get raids with mythic progress
-    let raids = getMythicRaids(progress);
-    let zones = "";
+	// only get raids with mythic progress
+	let raids = getMythicRaids(progress);
+	let zones = '';
 
-    // build query for each raid
-    raids.forEach((raid) => {
-        zones += buildZone(character, raid);
-    });
+	// build query for each raid
+	raids.forEach((raid) => {
+		zones += buildZone(character, raid);
+	});
 
-    return `query {
+	return `query {
         characterData 
         {
             character(name: "${character.name}", serverRegion: "${character.region}", serverSlug: "${character.slug}")
@@ -40,10 +41,10 @@ const buildAllRaids = (character, progress) => {
             }
         }
     }`;
-}
+};
 
 const findParses = async (character, progress) => {
-	const url = `https://www.warcraftlogs.com/api/v2/client`;;
+	const url = `https://www.warcraftlogs.com/api/v2/client`;
 
 	try {
 		const response = await axios.post(url, { query: buildAllRaids(character, progress) });
@@ -55,18 +56,18 @@ const findParses = async (character, progress) => {
 };
 
 const unpackParses = (data) => {
-    let raids = [];
-    for (const [key, value] of Object.entries(data)) {
-        raids.push({
-            raid: getRaidFromSlug(key),
-            avg: value.bestPerformanceAverage,
-            difficulty: value.difficulty,
-            metric: value.metric,
+	let raids = [];
+	for (const [key, value] of Object.entries(data)) {
+		raids.push({
+			raid: getRaidFromSlug(key),
+			avg: value.bestPerformanceAverage,
+			difficulty: value.difficulty,
+			metric: value.metric,
 			allStars: value.allStars[0], // get latest partition
-            rankings: value.rankings,
-        })
-    }
-    return raids;
+			rankings: value.rankings
+		});
+	}
+	return raids;
 };
 
 const findProgress = async (character) => {
@@ -153,6 +154,16 @@ const updateCharacterInfo = async (character) => {
 	}
 };
 
+const addToDatabase = async (character) => {
+	// check if character already exists
+
+	let { data, error } = await supabase
+		.from('characters')
+		.upsert({ name: character.name, slug: character.slug, region: character.region }, { onConflict: 'name, slug, region' })
+		.select();
+	console.log(data, error);
+};
+
 export async function load({ cookies }) {
 	let character = cookies.get('character');
 
@@ -171,6 +182,9 @@ export async function load({ cookies }) {
 
 	// get raid parses
 	const logs = await findParses(character, characterData);
+
+	// add character to db
+	await addToDatabase(character);
 
 	return {
 		character: character,

@@ -53,9 +53,9 @@ const getWclAccessToken = async () => {
 };
 
 export const load = async () => {
-    // get access tokens
-    wowToken = await getWowAccessToken();
-    wclToken = await getWclAccessToken();
+	// get access tokens
+	wowToken = await getWowAccessToken();
+	wclToken = await getWclAccessToken();
 
 	axios.interceptors.request.use(
 		(config) => {
