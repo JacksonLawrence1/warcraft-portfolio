@@ -2,15 +2,18 @@
 	import ProgressCard from '$lib/components/ProgressCard.svelte';
 	import RankingCard from '$lib/components/RankingCard.svelte';
 	import GuildHistoryCard from '$lib/components/GuildHistoryCard.svelte';
+	import CharacterHeader from '$lib/components/CharacterHeader.svelte';
 
 	export let data;
 </script>
+
+<CharacterHeader character={data.character} />
 
 <div class="flex justify-center">
 	<div class="card w-fit h-fit bg-base-200 shadow-xl">
 		<div class="card-body">
 			<div class="card-header">
-				<h1 class="card-title">{data.character.name}'s Profile</h1>
+				<h1 class="card-title">Bio</h1>
 			</div>
 			<p>
 				Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.

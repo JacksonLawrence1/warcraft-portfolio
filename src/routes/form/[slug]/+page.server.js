@@ -161,7 +161,6 @@ const addToDatabase = async (character) => {
 		.from('characters')
 		.upsert({ name: character.name, slug: character.slug, region: character.region }, { onConflict: 'name, slug, region' })
 		.select();
-	console.log(data, error);
 };
 
 export async function load({ cookies }) {
