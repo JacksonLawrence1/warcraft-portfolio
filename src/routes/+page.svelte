@@ -13,7 +13,7 @@
         {@html "Warcraft Portfolio makes it <span class='border-base-content/20 border-b-2'>easier than ever</span> to showcase your achievements in WoW, across multiple sources."}
       </p>
       <div class="flex flex-row justify-center gap-4">
-        <button class="btn btn-secondary">How to use?</button>
+        <a href="/about"><button class="btn btn-secondary">How to use?</button></a>
         <a href="/form"><button class="btn btn-primary">Get Started</button></a>
       </div>
     </div>

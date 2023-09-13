@@ -1,19 +1,5 @@
 import { json } from '@sveltejs/kit';
-import axios from 'axios';
-
-const fetchRealms = async (regionName) => {
-    const testURL = `https://${regionName}.api.blizzard.com/data/wow/realm/index`;
-    const headers = {
-        "Battlenet-Namespace": `dynamic-${regionName}`,
-    };
-
-    try {
-        const response = await axios.get(testURL, { headers });
-        return response.data.realms;
-    } catch (error) {
-        throw error; // Rethrow the error to handle it in the calling function if needed
-    }
-}
+import { fetchRealms } from '$lib/api/warcraftAPI.js';
 
 export async function GET( { url }) {
 

@@ -9,6 +9,10 @@
         return link;
     }
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     let armoryLink = defineLink('https://worldofwarcraft.com/en-gb/character/');
     let warcraftLogsLink = defineLink('https://www.warcraftlogs.com/character/');
     let raiderIOLink = defineLink('https://raider.io/characters/');
@@ -18,7 +22,7 @@
 <div class="flex justify-center">
     <div class="card w-full bg-base-200 shadow-xl">
         <div class="card-header flex justify-between items-center">
-            <h1 class="card-title ml-8">{character.name}'s Profile</h1>
+            <h1 class="card-title ml-8">{capitalizeFirstLetter(character.name)}'s Profile</h1>
             <div class="mr-8 flex flex-row">
                 <!--armory-->
                 <button class="btn btn-circle btn-ghost" title="Armory">

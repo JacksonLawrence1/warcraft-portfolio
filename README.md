@@ -1,38 +1,54 @@
-# create-svelte
+<a name="readme-top"></a>
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+<br />
+<div align="center">
+<img src="https://cdn.icon-icons.com/icons2/390/PNG/512/black-knight-helm_39539.png" alt="Morbent Manor" width="256" height="256">
 
-## Creating a project
+  <h3 align="center">Warcraft Portfolio</h3>
 
-If you're seeing this, you've probably already done this step. Congrats!
+  <p align="center">
+    Helping players showcase their achievements across multiple WoW sources as a concise portfolio. 
+    <br />
+    <strong>Website WIP</strong>
+  </p>
+</div>
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Warcraft Portfolio displays useful World of Warcraft character metrics, such as progress across different raids, performance against other players and guild history in a concise and appealing layout. Designed to help users instantly build a portfolio showcasing their most important performance metrics to demonstrate skill, Warcraft Portfolio attempts to streamline the recruitment and application process between joining new guilds.
 
-## Developing
+This project is built using Svelte and SvelteKit, with assistance of the World of Warcraft, WarcraftLogs and Raider.io [APIs](#acknowledgments).
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-```bash
-npm run dev
+### Built With
+* [![Svelte]][Svelte-url]
+* [![TailwindCSS]][TailwindCSS-url]
+* [![DaisyUI]][DaisyUI-url]
+* [![Battle-net]][Battle-net-url]
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## Contact
 
-## Building
+Jackson Lawrence - jplqqz@gmail.com
+<!-- Project Link: []() -->
 
-To create a production version of your app:
 
-```bash
-npm run build
-```
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
 
-You can preview the production build with `npm run preview`.
+* [World of Warcraft Game API](https://develop.battle.net/documentation/world-of-warcraft)
+* [WarcraftLogs](https://www.warcraftlogs.com/)
+* [Raider.io](https://raider.io/)
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[Svelte]: https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white
+[Svelte-url]: https://svelte.dev/
+[TailwindCSS]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
+[TailwindCSS-url]: https://tailwindcss.com/
+[DaisyUI]: https://img.shields.io/badge/daisyui-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white
+[DaisyUI-url]: https://daisyui.com/
+[Battle-net]: https://img.shields.io/badge/battle.net-%2300AEFF.svg?style=for-the-badge&logo=battle.net&logoColor=white
+[Battle-net-url]: https://www.blizzard.com/
+

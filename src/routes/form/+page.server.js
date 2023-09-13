@@ -1,24 +1,6 @@
-import axios from 'axios';
-import { fail, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
+import { findCharacter } from '$lib/api/warcraftAPI.js';
 
-
-const findCharacter = async (regionName, realmSlug, characterName) => {
-    const url = `https://${regionName}.api.blizzard.com/profile/wow/character/${realmSlug}/${characterName} `;
-	const headers = {
-		'Battlenet-Namespace': `profile-${regionName}`
-	};
-
-	try {
-		const response = await axios.get(url, { headers });
-		return response.data;
-	} catch (error) {
-		return fail(422, {
-			description: characterName + ' not found',
-			error: error.message
-		});
-	}
-
-}
 
 export const actions = {
 	search: async ({ request, cookies }) => {
@@ -33,8 +15,8 @@ export const actions = {
 		let res = await findCharacter(character.region, character.slug, character.name);
 
 		if (res.status !== 422) {
-			cookies.set('character', JSON.stringify(character), { path: '/' });
-			throw redirect(302, '/form/showcase');
+			// fill in route parameters automatically
+			throw redirect(302, `/character/${character.region}/${character.slug}/${character.name}`);
 		}
 		
 		return res;

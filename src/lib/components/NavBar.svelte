@@ -15,17 +15,19 @@
 				class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
 			>
 				<li><a href="/">Home</a></li>
-				<li><a href="/form" data-sveltekit-preload-data>Form</a></li>
-				<li><a href="/form/showcase">Showcase</a></li>
+				<li><a href="/form" data-sveltekit-preload-data>Search</a></li>
+				<li><a href="/about" data-sveltekit-preload-data>About</a></li>
 			</ul>
 		</div>
 		<div class="flex-1">
-			<a class="btn btn-ghost normal-case text-xl" href="./" target="_self">Warcraft Portfolio</a>
+			<a class="btn btn-ghost normal-case text-xl" href="/" target="_self">Warcraft Portfolio</a>
 		</div>
 	</div>
 	<div class="navbar-end">
-		<button class="btn btn-ghost btn-square">
-			<GoMarkGithub />
-		</button>
+		<a href="https://github.com/JacksonLawrence1/warcraft-portfolio" target="_blank">
+			<button class="btn btn-ghost btn-square">
+				<GoMarkGithub />
+			</button>
+		</a>
 	</div>
 </div>

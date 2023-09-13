@@ -17,22 +17,25 @@
 		let rankings = getHighestRanks();
 		let allStars = getAllStars();
 
+		// add allstars to achievements if there are enough
 		if (allStars.length >= 5) {
+			// shows a max of 3, so players can see potential single encounters
 			achievements = [...allStars.slice(0, 3)];
 		}
 
-		// if not enough allstars, fill with best parses until 5
-		let parseCount = 5 - achievements.length;
-		let parseIndex = 0;
-		while (parseCount > 0) {
-			achievements.push(rankings[parseIndex]);
-			parseIndex++;
-			parseCount--;
+		// if not enough allstars, try to fill with best parses until 5
+		if (achievements.length < 5) {
+			let i = 0;
+			while (achievements.length < 5 && i < rankings.length) {
+				achievements.push(rankings[i]);
+				i++;
+			}
 		}
-		console.log(achievements);
+		
 		return achievements;
 	}
 
+	// All star points are rankings for the whole raid, not just a single encounter
 	function getAllStars() {
 		let allStars = [];
 		logs.forEach((log) => {

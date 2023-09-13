@@ -40,7 +40,7 @@
 			{:else if log.type === 'allStar'}
 				<div class="stat-title">{log.raid.name}, Mythic</div>
 				<div class="stat-desc text-secondary">
-					↗︎ All Stars {log.points.toFixed(0)} ({log.spec} {character.class}s)
+					↗︎ For all star {log.spec} {character.class}s
 				</div>
 			{/if}
 			<div class="stat-figure">
