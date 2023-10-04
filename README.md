@@ -9,7 +9,7 @@
   <p align="center">
     Helping players showcase their achievements across multiple WoW sources as a concise portfolio. 
     <br />
-    <strong>Website WIP</strong>
+    <a href="https://warcraft-portfolio.vercel.app"><strong>View Online »</strong></a>
   </p>
 </div>
 
