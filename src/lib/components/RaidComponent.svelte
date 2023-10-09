@@ -13,7 +13,7 @@
 	}
 </script>
 
-<div class="flex flex-row bg-base-200 rounded-xl p-2">
+<div class="flex flex-row bg-base-100 rounded-xl p-2 shadow-xl">
     <img alt={raid.name} src={raid.image} class="w-14 h-14 rounded" />
     <div class="flex flex-col w-60 justify-center ml-3 mr-1">
         <h1 class=" text-left text-base font-semibold">{raid.name}</h1>

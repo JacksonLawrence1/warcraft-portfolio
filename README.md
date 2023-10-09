@@ -16,8 +16,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Warcraft Portfolio displays useful World of Warcraft character metrics, such as progress across different raids, performance against other players and guild history in a concise and appealing layout. Designed to help users instantly build a portfolio showcasing their most important performance metrics to demonstrate skill, Warcraft Portfolio attempts to streamline the recruitment and application process between joining new guilds.
-
+Warcraft Portfolio displays useful World of Warcraft character metrics, such as progress their across different raids and performance against others in a concise and appealing layout. Designed to help users instantly build a portfolio showcasing their most important performance metrics to demonstrate skill, Warcraft Portfolio attempts to streamline the recruitment and application process between joining new guilds.
 This project is built using Svelte and SvelteKit, with assistance of the World of Warcraft, WarcraftLogs and Raider.io [APIs](#acknowledgments).
 
 

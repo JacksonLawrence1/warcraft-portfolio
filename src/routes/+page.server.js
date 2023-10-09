@@ -6,6 +6,8 @@ import {
 } from '$env/static/private';
 import axios from 'axios';
 
+import { findProgress } from '$lib/api/raiderioAPI';
+
 // make this dyanmic based on user location
 const wowTokenEndpoint = 'https://oauth.battle.net/token';
 const wclTokenEndpoint = 'https://www.warcraftlogs.com/oauth/token';

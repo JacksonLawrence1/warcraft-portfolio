@@ -33,18 +33,18 @@
 			<div class={buildClass("stat-value -mt-2 font-semibold", log.rank)}>Rank {log.rank}</div>
 			{#if log.type === 'parse'}
 				<div class="stat-title">{log.encounter.name}, Mythic</div>
-				<div class="stat-desc text-secondary">
+				<div class="stat-desc text-primary">
 					↗︎ {log.rankPercent.toFixed(0)}th percentile ({log.spec}
 					{character.class}s)
 				</div>
 			{:else if log.type === 'allStar'}
 				<div class="stat-title">{log.raid.name}, Mythic</div>
-				<div class="stat-desc text-secondary">
+				<div class="stat-desc text-primary">
 					↗︎ For all star {log.spec} {character.class}s
 				</div>
 			{/if}
 			<div class="stat-figure">
-				<button class="btn btn-square btn-ghost">
+				<button class="btn btn-square btn-ghost text-primary">
 					<a href={buildWCLLink()} target="_blank">
 						<IoIosArrowDroprightCircle />
 					</a>

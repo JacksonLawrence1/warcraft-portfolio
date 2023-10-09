@@ -1,12 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
-  plugins: [require("daisyui")],
+	content: ['./src/**/*.{html,js,svelte,ts}'],
+	plugins: [require('daisyui')],
 
-  daisyui: {
-    themes: false,
-    darkTheme: "dark",
-    styled: true,
-  },
-}
-
+	daisyui: {
+		themes: [
+			{
+				default: {
+          'base-100': '#393e46',
+					secondary: '#222831',
+					primary: '#f96d00',
+          accent: '#f2f2f2',
+				}
+			}
+		],
+		darkTheme: 'dark',
+		styled: true
+	}
+};

@@ -12,11 +12,10 @@
 			<ul
 				id="navmenu"
 				tabindex="-1"
-				class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+				class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52"
 			>
 				<li><a href="/">Home</a></li>
 				<li><a href="/form" data-sveltekit-preload-data>Search</a></li>
-				<li><a href="/about" data-sveltekit-preload-data>About</a></li>
 			</ul>
 		</div>
 		<div class="flex-1">

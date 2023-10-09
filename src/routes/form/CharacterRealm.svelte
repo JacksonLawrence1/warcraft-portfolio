@@ -106,6 +106,12 @@
 	}
 </script>
 
+<style>
+	input:disabled {
+		background-color: #393e46;
+	}
+</style>
+
 <div>
 	<label class="label" for={id}>
 		<span class="label-text">{text}</span>

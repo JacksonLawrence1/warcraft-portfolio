@@ -20,7 +20,7 @@
 	};
 </script>
 
-<div class="card w-fit bg-base-100 shadow-xl mx-auto mb-6 mt-6">
+<div class="card w-fit bg-base-200 shadow-xl mx-auto mb-6 mt-6">
 	<div class="card-body form-control max-w-xs">
 		<form
 			method="POST"
