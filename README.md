@@ -2,7 +2,7 @@
 
 <br />
 <div align="center">
-<img src="https://cdn.icon-icons.com/icons2/390/PNG/512/black-knight-helm_39539.png" alt="Morbent Manor" width="256" height="256">
+<img src="./static/helm.png" alt="Warcraft Portfolio" width="256" height="256">
 
   <h3 align="center">Warcraft Portfolio</h3>
 
